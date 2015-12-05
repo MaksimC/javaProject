@@ -13,12 +13,9 @@ import javafx.stage.Stage;
  * Created by emaktse on 05.12.2015.
  */
 public class imageData {
-    ImageView Picture1;
-
 
 
     public static void array() {
-
         Image[] allImages = new Image[49];
         String filelocation = new String();
 

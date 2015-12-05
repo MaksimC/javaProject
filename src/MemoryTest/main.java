@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
 
 /**
@@ -17,7 +19,6 @@ public class main extends Application {
     Scene scene1, scene2;
 
     public static void main () throws Exception {
-
         // define which methods will be used in program
         // setupStage
         // setupScene1
@@ -35,24 +36,27 @@ public class main extends Application {
     public void start(Stage primaryStage) throws Exception {
         window1 = primaryStage;
 
+
         // Scene 1 elements
-        Label label1 = new Label("Please enter you age");
-        TextField ageInsert = new TextField();
-        ageInsert.setPromptText("ENTER YOUR AGE HERE");
+        Label label1 = new Label("Please enter your name and age");
+        TextField nameInput = new TextField();
+        TextField ageInput = new TextField();
+        nameInput.setPromptText("ENTER YOUR NAME HERE");
+        ageInput.setPromptText("ENTER YOUR AGE HERE");
         Button buttonNext = new Button ("Next");
+        buttonNext.setOnAction( e -> validateName(nameInput, nameInput.getText()));
 
         // Scene 1 layout
         VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, ageInsert, buttonNext);
+        layout1.getChildren().addAll(label1, nameInput, ageInput, buttonNext);
         layout1.setAlignment(Pos.CENTER);
         scene1 = new Scene (layout1, 800, 600);
-        buttonNext.setOnAction( e -> validateAge(ageInsert, ageInsert.getText()));
 
         // Scene 2 elements
         Label label2 = new Label("Press start to begin test");
         Button buttonStart = new Button("start");
         buttonStart.setOnAction(e -> imageData.array());
-        Label label3 = new Label(ageInsert.getText());
+        Label label3 = new Label(ageInput.getText());
 
         //Scene 2 layout
         VBox layout2 = new VBox(30);
@@ -65,16 +69,28 @@ public class main extends Application {
 
         window1.show();
     }
+    //Name Validation method
+    private void validateName(TextField input, String message) {
+        String inputName = input.getText();
+        if (inputName == null){
+            errorPopUp.errorPop("Title", "Message");
+        } else
+            System.out.println("kapec");
+
+    }
     // Age validation method
-    private boolean validateAge(TextField input, String message){
+    /*private boolean validateAge(TextField input, String message){
+        System.out.println(input);
         try {
             int inputAge = Integer.parseInt(input.getText());
             window1.setScene(scene2);
             return true;
         } catch (NumberFormatException e) {
-            errorPopUp.errorPop("Title", "Message");
+            errorPopUp.errorPop2("Title", "Message");
             return false;
         }
-    }
+
+    }*/
+
 }
 
