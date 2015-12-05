@@ -22,7 +22,6 @@ public class imageData {
         for (int i = 0; i < 49; i++) {
 
             filelocation = "C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\" + i + ".gif";
-            System.out.println("URL is " + filelocation);
             allImages[i] = new Image("file:"+filelocation);
         }
 

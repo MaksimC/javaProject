@@ -44,7 +44,7 @@ public class main extends Application {
         nameInput.setPromptText("ENTER YOUR NAME HERE");
         ageInput.setPromptText("ENTER YOUR AGE HERE");
         Button buttonNext = new Button ("Next");
-        buttonNext.setOnAction( e -> validateName(nameInput, nameInput.getText()));
+        buttonNext.setOnAction( e -> validateName(nameInput, ageInput));
 
         // Scene 1 layout
         VBox layout1 = new VBox(20);
@@ -70,27 +70,28 @@ public class main extends Application {
         window1.show();
     }
     //Name Validation method
-    private void validateName(TextField input, String message) {
+    private void validateName(TextField input, TextField input1) {
+        String inputAge = input1.getText();
         String inputName = input.getText();
-        if (inputName == null){
-            errorPopUp.errorPop("Title", "Message");
+        if (inputName.length() == 0){
+            errorPopUp.errorPop2("Title", "Message");
         } else
-            System.out.println("kapec");
+        validateAge(inputAge, inputName);
 
     }
     // Age validation method
-    /*private boolean validateAge(TextField input, String message){
-        System.out.println(input);
+    private boolean validateAge(String inputAge, String inputName){
         try {
-            int inputAge = Integer.parseInt(input.getText());
+            int age = Integer.parseInt(inputAge);
+            System.out.println("Name is " + inputName + ", Age is " + age);
             window1.setScene(scene2);
             return true;
         } catch (NumberFormatException e) {
-            errorPopUp.errorPop2("Title", "Message");
+            errorPopUp.errorPop("Title", "Message");
             return false;
         }
 
-    }*/
+    }
 
 }
 
