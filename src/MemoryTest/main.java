@@ -51,7 +51,7 @@ public class main extends Application {
         // Scene 2 elements
         Label label2 = new Label("Press start to begin test");
         Button buttonStart = new Button("start");
-        buttonStart.setOnAction(e -> imageData.loadImages());
+        buttonStart.setOnAction(e -> imageData.array());
         Label label3 = new Label(ageInsert.getText());
 
         //Scene 2 layout
