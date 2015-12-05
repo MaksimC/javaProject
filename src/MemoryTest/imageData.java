@@ -13,19 +13,22 @@ import javafx.stage.Stage;
  */
 public class imageData {
     //Image [] imageArray = new Image[49];
+    ImageView Picture1;
 
 
     public static void loadImages (){
         Stage stage2 = new Stage();
-
         Scene scene3;
         Image img;
+
+        img = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\0.gif");
         //scene3 elements
-        ImageView imgPic = new ImageView();
+        ImageView Picture1 = new ImageView();
+        Picture1.setImage(img);
 
         //layout
         VBox layout3 = new VBox();
-        layout3.getChildren().addAll(imgPic);
+        layout3.getChildren().addAll(Picture1);
         scene3 = new Scene(layout3);
 
         stage2.setScene(scene3);
