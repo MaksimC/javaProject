@@ -39,24 +39,24 @@ public class main extends Application {
         Label label1 = new Label("Please enter you age");
         TextField ageInsert = new TextField();
         ageInsert.setPromptText("ENTER YOUR AGE HERE");
-        Button button1 = new Button ("Next");
+        Button buttonNext = new Button ("Next");
 
         // Scene 1 layout
         VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, ageInsert, button1);
+        layout1.getChildren().addAll(label1, ageInsert, buttonNext);
         layout1.setAlignment(Pos.CENTER);
         scene1 = new Scene (layout1, 800, 600);
-        button1.setOnAction( e -> validateAge(ageInsert, ageInsert.getText()));
+        buttonNext.setOnAction( e -> validateAge(ageInsert, ageInsert.getText()));
 
         // Scene 2 elements
         Label label2 = new Label("Press start to begin test");
-        Button button2 = new Button("start");
-        button2.setOnAction(e -> errorPopUp.errorPop("Title", "Message"));
+        Button buttonStart = new Button("start");
+        buttonStart.setOnAction(e -> imageData.loadImages());
         Label label3 = new Label(ageInsert.getText());
 
-        //set layout for scene2
+        //Scene 2 layout
         VBox layout2 = new VBox(30);
-        layout2.getChildren().addAll(label2, button2, label3);
+        layout2.getChildren().addAll(label2, buttonStart, label3);
         layout2.setAlignment(Pos.CENTER);
         scene2 = new Scene(layout2,800, 600);
 
