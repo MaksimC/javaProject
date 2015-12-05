@@ -59,6 +59,7 @@ public class main extends Application {
 
         window1.show();
     }
+
     //Name Validation method
     private void validateName(TextField input, TextField input1) {
         String inputAge = input1.getText();
@@ -66,9 +67,9 @@ public class main extends Application {
         if (inputName.length() == 0){
             errorPopUp.errorPop2("Title", "Message");
         } else
-        validateAge(inputAge, inputName);
-
+            validateAge(inputAge, inputName);
     }
+
     // Age validation method
     private boolean validateAge(String inputAge, String inputName){
         try {
@@ -81,7 +82,6 @@ public class main extends Application {
             errorPopUp.errorPop("Title", "Message");
             return false;
         }
-
     }
 
     public void gameStart() {
@@ -123,7 +123,7 @@ public class main extends Application {
 
         window1.setScene(scene3);
         window1.show();
-
+//Change repo to SSH
     }
 }
 
