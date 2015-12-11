@@ -2,16 +2,23 @@ package MemoryTest;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
+import sun.plugin.javascript.navig.Anchor;
+import sun.plugin.javascript.navig.Array;
+import sun.text.resources.cldr.ia.FormatData_ia;
+
+import java.util.Random;
 
 /**
  * Created by emaktse on 01.11.2015.
@@ -19,6 +26,7 @@ import javafx.stage.Stage;
 public class main extends Application {
     Stage window1;
     Scene scene1, scene2, scene3;
+    Image[] allImages = new Image[49];
 
     public static void main () throws Exception {
         // define which methods will be used in program
@@ -75,7 +83,7 @@ public class main extends Application {
         try {
             int age = Integer.parseInt(inputAge);
             System.out.println("Name is " + inputName + ", Age is " + age);
-            gameStart();
+            testStart();
 
             return true;
         } catch (NumberFormatException e) {
@@ -84,7 +92,7 @@ public class main extends Application {
         }
     }
 
-    public void gameStart() {
+    public void testStart() {
         // Scene 2 elements
         Label label2 = new Label("Press start to begin test");
         Button buttonStart = new Button("start");
@@ -102,8 +110,10 @@ public class main extends Application {
         window1.setTitle("Memory Game");
         window1.show();
     }
+
+
     public void array() {
-        Image[] allImages = new Image[49];
+
         String filelocation = new String();
 
         for (int i = 0; i < 49; i++) {
@@ -112,18 +122,58 @@ public class main extends Application {
             allImages[i] = new Image("file:"+filelocation);
         }
 
+        int[] randomImageNumber = new int[5];
+        Random r1 = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            randomImageNumber[i]= (r1.nextInt(49));
+            System.out.println(randomImageNumber[i]);
+        }
+
+        Image randImg0, randImg1, randImg2, randImg3, randImg4;
+
+        randImg0 = allImages[randomImageNumber[0]];
+        randImg1 = allImages[randomImageNumber[1]];
+        randImg2 = allImages[randomImageNumber[2]];
+        randImg3 = allImages[randomImageNumber[3]];
+        randImg4 = allImages[randomImageNumber[4]];
+
         //scene3 elements
+        /*ImageView Picture0 = new ImageView();
         ImageView Picture1 = new ImageView();
-        Picture1.setImage(allImages[48]);
+        ImageView Picture2 = new ImageView();
+        ImageView Picture3 = new ImageView();
+        ImageView Picture4 = new ImageView();
+        Picture0.setImage(randImg0);
+        Picture1.setImage(randImg1);
+        Picture2.setImage(randImg2);
+        Picture3.setImage(randImg3);
+        Picture4.setImage(randImg4);*/
+        Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
+        Label test = new Label("testeteets");
+
 
         //Scene 3 layout
-        BorderPane layout3 = new BorderPane();
-        layout3.setCenter(Picture1);
-        scene3 = new Scene(layout3, 800, 600);
 
+
+        Group group = new Group();
+        for (int i = 0; i < 5; i++) {
+            ImageView Picture0 = new ImageView(allImages[i]);
+            Picture0.setX(i*83);
+            group.getChildren().add(Picture0);
+        }
+        HBox layout3 = new HBox();
+        VBox vbox = new VBox();
+        GridPane grid = new GridPane();
+        BorderPane border = new BorderPane();
+        Pane pane = new Pane();
+
+        layout3.getChildren().addAll(group, test);
+
+        scene3 = new Scene(layout3, 800, 600);
         window1.setScene(scene3);
-        window1.show();
-//Change repo to SSH
+
     }
+
 }
 
