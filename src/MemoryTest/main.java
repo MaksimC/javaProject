@@ -130,7 +130,7 @@ public class main extends Application {
             System.out.println(randomImageNumber[i]);
         }
 
-        Image randImg0, randImg1, randImg2, randImg3, randImg4;
+        /*Image randImg0, randImg1, randImg2, randImg3, randImg4;
 
         randImg0 = allImages[randomImageNumber[0]];
         randImg1 = allImages[randomImageNumber[1]];
@@ -138,8 +138,7 @@ public class main extends Application {
         randImg3 = allImages[randomImageNumber[3]];
         randImg4 = allImages[randomImageNumber[4]];
 
-        //scene3 elements
-        /*ImageView Picture0 = new ImageView();
+        ImageView Picture0 = new ImageView();
         ImageView Picture1 = new ImageView();
         ImageView Picture2 = new ImageView();
         ImageView Picture3 = new ImageView();
@@ -149,16 +148,17 @@ public class main extends Application {
         Picture2.setImage(randImg2);
         Picture3.setImage(randImg3);
         Picture4.setImage(randImg4);*/
+
+        //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
         Label test = new Label("testeteets");
 
 
         //Scene 3 layout
 
-
         Group group = new Group();
         for (int i = 0; i < 5; i++) {
-            ImageView Picture0 = new ImageView(allImages[i]);
+            ImageView Picture0 = new ImageView(allImages[randomImageNumber[i]]);
             Picture0.setX(i*83);
             group.getChildren().add(Picture0);
         }
