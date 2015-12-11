@@ -130,29 +130,10 @@ public class main extends Application {
             System.out.println(randomImageNumber[i]);
         }
 
-        /*Image randImg0, randImg1, randImg2, randImg3, randImg4;
-
-        randImg0 = allImages[randomImageNumber[0]];
-        randImg1 = allImages[randomImageNumber[1]];
-        randImg2 = allImages[randomImageNumber[2]];
-        randImg3 = allImages[randomImageNumber[3]];
-        randImg4 = allImages[randomImageNumber[4]];
-
-        ImageView Picture0 = new ImageView();
-        ImageView Picture1 = new ImageView();
-        ImageView Picture2 = new ImageView();
-        ImageView Picture3 = new ImageView();
-        ImageView Picture4 = new ImageView();
-        Picture0.setImage(randImg0);
-        Picture1.setImage(randImg1);
-        Picture2.setImage(randImg2);
-        Picture3.setImage(randImg3);
-        Picture4.setImage(randImg4);*/
 
         //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
         Label test = new Label("testeteets");
-
 
         //Scene 3 layout
 
