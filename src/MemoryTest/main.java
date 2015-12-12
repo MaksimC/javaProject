@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
+import sun.plugin.dom.css.Counter;
 import sun.plugin.javascript.navig.Anchor;
 import sun.plugin.javascript.navig.Array;
 import sun.text.resources.cldr.ia.FormatData_ia;
@@ -125,31 +126,34 @@ public class main extends Application {
         int[] randomImageNumber = new int[5];
         Random r1 = new Random();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < randomImageNumber.length; i++) {
             randomImageNumber[i]= (r1.nextInt(49));
-            System.out.println(randomImageNumber[i]);
-        }
 
+
+            System.out.println(randomImageNumber[i]);
+
+
+        }
 
         //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
         Label test = new Label("testeteets");
 
         //Scene 3 layout
-
         Group group = new Group();
         for (int i = 0; i < 5; i++) {
             ImageView Picture0 = new ImageView(allImages[randomImageNumber[i]]);
             Picture0.setX(i*83);
             group.getChildren().add(Picture0);
         }
-        HBox layout3 = new HBox();
+        HBox hbox = new HBox();
         VBox vbox = new VBox();
         GridPane grid = new GridPane();
-        BorderPane border = new BorderPane();
+        BorderPane layout3 = new BorderPane();
         Pane pane = new Pane();
 
-        layout3.getChildren().addAll(group, test);
+        layout3.setCenter(group);
+        layout3.setTop(test);
 
         scene3 = new Scene(layout3, 800, 600);
         window1.setScene(scene3);
