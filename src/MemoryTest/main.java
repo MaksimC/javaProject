@@ -116,7 +116,7 @@ public class main extends Application {
     }
 
 
-    public void array() {
+    public void array () {
 
         String filelocation = new String();
 
@@ -126,14 +126,27 @@ public class main extends Application {
             allImages[i] = new Image("file:"+filelocation);
         }
 
-        int[] randomImageNumber = new int[49];
 
-        ArrayList<Integer> list = new ArrayList<Integer>(10);
+         /*This commented piece of code is not used, though fully working! (works with integer, but not String - why??)
+         It should make shuffling in the list first, and then converts list to Array.
+
+         ArrayList<Integer> list = new ArrayList<Integer>(10);
+
         for (int i = 0; i < 10; i++) {
             list.add(i);
         }
         Collections.shuffle(list);
         System.out.println(list);
+
+        Integer[] randNumber = list.toArray(new Integer[0]);
+
+        for (int i = 0; i < randNumber.length; i++) {
+            System.out.println(randNumber[i]);
+        }
+        */
+
+
+        Integer[] randomImageNumber = new Integer[49];
 
         for (int i = 0; i < randomImageNumber.length; i++) {
             randomImageNumber[i] = i;
@@ -144,8 +157,6 @@ public class main extends Application {
         for (int i = 0; i < randomImageNumber.length; i++) {
             System.out.println(randomImageNumber[i]);
         }
-
-
 
         //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
