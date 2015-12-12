@@ -29,7 +29,7 @@ import java.util.Random;
  */
 public class main extends Application {
     Stage window1;
-    Scene scene1, scene2, scene3;
+    Scene scene1, scene2, scene3, scene4;
     Image[] allImages = new Image[49];
 
     public static void main () throws Exception {
@@ -160,27 +160,40 @@ public class main extends Application {
 
         //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
-        Label test = new Label("testeteets");
+        Button nextButton = new Button("NEXT");
 
         //Scene 3 layout
+
         Group group = new Group();
         for (int i = 0; i < 5; i++) {
             ImageView Picture0 = new ImageView(allImages[randomImageNumber[i]]);
             Picture0.setX(i*83);
             group.getChildren().add(Picture0);
         }
-        HBox hbox = new HBox();
-        VBox vbox = new VBox();
-        GridPane grid = new GridPane();
+
         BorderPane layout3 = new BorderPane();
-        Pane pane = new Pane();
 
         layout3.setCenter(group);
-        layout3.setTop(test);
+        layout3.setTop(instruction);
+        layout3.setBottom(nextButton);
+        layout3.setAlignment(instruction, Pos.TOP_CENTER);
+        layout3.setAlignment(nextButton, Pos.BASELINE_CENTER);
+        nextButton.setOnAction(e -> checkResult());
+
 
         scene3 = new Scene(layout3, 800, 600);
         window1.setScene(scene3);
 
+    }
+
+    public void checkResult(){
+
+        Pane layout4 = new Pane();
+        Button tryAgain = new Button("Try again");
+        layout4.getChildren().addAll(tryAgain);
+
+        scene4 = new Scene(layout4, 800, 600);
+        window1.setScene(scene4);
     }
 
 }
