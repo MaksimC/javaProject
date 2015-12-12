@@ -19,6 +19,9 @@ import sun.plugin.javascript.navig.Anchor;
 import sun.plugin.javascript.navig.Array;
 import sun.text.resources.cldr.ia.FormatData_ia;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -123,17 +126,26 @@ public class main extends Application {
             allImages[i] = new Image("file:"+filelocation);
         }
 
-        int[] randomImageNumber = new int[5];
-        Random r1 = new Random();
+        int[] randomImageNumber = new int[49];
+
+        ArrayList<Integer> list = new ArrayList<Integer>(10);
+        for (int i = 0; i < 10; i++) {
+            list.add(i);
+        }
+        Collections.shuffle(list);
+        System.out.println(list);
 
         for (int i = 0; i < randomImageNumber.length; i++) {
-            randomImageNumber[i]= (r1.nextInt(49));
-
-
-            System.out.println(randomImageNumber[i]);
-
+            randomImageNumber[i] = i;
 
         }
+        Collections.shuffle(Arrays.asList((randomImageNumber)));
+
+        for (int i = 0; i < randomImageNumber.length; i++) {
+            System.out.println(randomImageNumber[i]);
+        }
+
+
 
         //scene3 elements
         Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
