@@ -10,19 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Stage;
-import sun.plugin.dom.css.Counter;
-import sun.plugin.javascript.navig.Anchor;
-import sun.plugin.javascript.navig.Array;
-import sun.text.resources.cldr.ia.FormatData_ia;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by emaktse on 01.11.2015.
@@ -59,6 +48,10 @@ public class main extends Application {
         ageInput.setPromptText("ENTER YOUR AGE HERE");
         Button buttonNext = new Button ("Next");
         buttonNext.setOnAction( e -> validateName(nameInput, ageInput));
+        buttonNext.setOnKeyPressed(event -> {
+            System.out.println(event.getCode());
+            validateName(nameInput, ageInput);
+        });
 
         // Scene 1 layout
         VBox layout1 = new VBox(20);
@@ -101,6 +94,7 @@ public class main extends Application {
         Label label2 = new Label("Press start to begin test");
         Button buttonStart = new Button("start");
         buttonStart.setOnAction(e -> array());
+        buttonStart.setOnKeyPressed(event -> array());
         /* Label label3 = new Label(ageInput.getText());*/
 
         //Scene 2 layout
@@ -117,59 +111,37 @@ public class main extends Application {
 
 
     public void array () {
-
-        String filelocation = new String();
-
+        String filelocation;
         for (int i = 0; i < 49; i++) {
 
             filelocation = "C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\" + i + ".gif";
-            allImages[i] = new Image("file:"+filelocation);
+            Image img = new Image("file:"+filelocation);
+            allImages[i] = img;
         }
-
-
-         /*This commented piece of code is not used, though fully working! (works with integer, but not String - why??)
-         It should make shuffling in the list first, and then converts list to Array.
-
-         ArrayList<Integer> list = new ArrayList<Integer>(10);
-
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-        Collections.shuffle(list);
-        System.out.println(list);
-
-        Integer[] randNumber = list.toArray(new Integer[0]);
-
-        for (int i = 0; i < randNumber.length; i++) {
-            System.out.println(randNumber[i]);
-        }
-        */
-
 
         Integer[] randomImageNumber = new Integer[49];
-
         for (int i = 0; i < randomImageNumber.length; i++) {
             randomImageNumber[i] = i;
-
         }
         Collections.shuffle(Arrays.asList((randomImageNumber)));
 
-        for (int i = 0; i < randomImageNumber.length; i++) {
-            System.out.println(randomImageNumber[i]);
-        }
-
-        //scene3 elements
-        Label instruction = new Label("FUCK YOU, YOU FUCKING FUCK!!!");
-        Button nextButton = new Button("NEXT");
-
-        //Scene 3 layout
+        String [] listOfImageAsk = new String [5];
 
         Group group = new Group();
         for (int i = 0; i < 5; i++) {
-            ImageView Picture0 = new ImageView(allImages[randomImageNumber[i]]);
-            Picture0.setX(i*83);
-            group.getChildren().add(Picture0);
+            Image image = allImages[randomImageNumber[i]];
+            ImageView imageAsk = new ImageView(image);
+            imageAsk.setId(randomImageNumber[i]+".gif");
+            listOfImageAsk [i] = (randomImageNumber[i]+".gif");
+            imageAsk.setX(i*83);
+            group.getChildren().add(imageAsk);
+            System.out.println(listOfImageAsk[i]);
         }
+
+        //scene3 elements
+
+        Label instruction = new Label("RULES TO BE HERE");
+        Button nextButton = new Button("NEXT");
 
         BorderPane layout3 = new BorderPane();
 
@@ -178,7 +150,8 @@ public class main extends Application {
         layout3.setBottom(nextButton);
         layout3.setAlignment(instruction, Pos.TOP_CENTER);
         layout3.setAlignment(nextButton, Pos.BASELINE_CENTER);
-        nextButton.setOnAction(e -> checkResult());
+        nextButton.setOnAction(e -> checkResultScreen(listOfImageAsk));
+        nextButton.setOnKeyPressed(e -> checkResultScreen(listOfImageAsk));
 
 
         scene3 = new Scene(layout3, 800, 600);
@@ -186,13 +159,69 @@ public class main extends Application {
 
     }
 
-    public void checkResult(){
+    public void checkResultScreen(String [] listOfImageAsk){
 
-        Pane layout4 = new Pane();
+        VBox vbox = new VBox();
+        GridPane grid = new GridPane();
+        grid.setGridLinesVisible(true);
+        Image imgYes = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\yes.gif");
+        ImageView imageViewYes = new ImageView(imgYes);
+        Image imgNo = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\no.gif");
+        ImageView imageViewNo = new ImageView(imgNo);
+
+        Image[] yesImages = new Image [5];
+        String filelocation;
+        for (int i = 0; i < 5; i++) {
+
+            filelocation = "C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\yes" + i + ".gif";
+            Image img = new Image("file:"+filelocation);
+            yesImages[i] = img;
+        }
+
+        int i =0;
+        for (int j = 0; j < 7; j++) {
+            for (int k = 0; k < 7; k++) {
+                Image image = allImages[i];
+                ImageView imageCheck = new ImageView(image);
+                imageCheck.setId(i+".gif");
+                /*imageCheck.setOnMouseClicked(e ->{
+                    ImageView imageViewSourceRef = (ImageView) e.getSource();
+                    String id = imageViewSourceRef.getId();
+                    System.out.println(id);
+                    int columnIndex = grid.getColumnIndex(imageViewSourceRef);
+                    int rowIndex = grid.getRowIndex(imageViewSourceRef);
+                    for (int l = 0; l < 5; l++) {
+                        if (id.equals(listOfImageAsk[l])) {
+                            grid.add(imageViewYes, columnIndex, rowIndex);
+                            System.out.println(id + "  fuckoff");
+                        } /*else {
+                            grid.add(imageViewNo, columnIndex, rowIndex);
+                        }
+                    }
+                });*/
+                grid.add(imageCheck, k, j);
+                i++;
+            }
+        }
+        grid.setOnMouseClicked(e ->{
+                    ImageView imageViewSourceRef = (ImageView) e.getTarget();
+                    String id = imageViewSourceRef.getId();
+                    System.out.println(id);
+                    int columnIndex = grid.getColumnIndex(imageViewSourceRef);
+                    int rowIndex = grid.getRowIndex(imageViewSourceRef);
+                    for (int j = 0; j < 5; j++) {
+                        if(id.equals(listOfImageAsk[j])){
+                            ImageView imageYes = new ImageView(yesImages[j]);
+                            grid.add(imageYes, columnIndex, rowIndex);
+                            System.out.println(id + "  fuckoff");
+                        }
+                    }
+                });
+
         Button tryAgain = new Button("Try again");
-        layout4.getChildren().addAll(tryAgain);
+        vbox.getChildren().addAll(grid, tryAgain);
 
-        scene4 = new Scene(layout4, 800, 600);
+        scene4 = new Scene(vbox, 800, 600);
         window1.setScene(scene4);
     }
 
