@@ -22,17 +22,7 @@ public class main extends Application {
     Image[] allImages = new Image[49];
 
     public static void main () throws Exception {
-        // define which methods will be used in program
-        // setupStage
-        // setupScene1
-        // setupScene2
-        // setupScene3
-        // fillScene1
-        // clickFunctions
-        // Check result
-        // Draw pictures
-        // setupStage();
-        // GIT TEST comment!!!
+
     }
 
     @Override
@@ -169,14 +159,6 @@ public class main extends Application {
         Image imgNo = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\no.gif");
         ImageView imageViewNo = new ImageView(imgNo);
 
-        Image[] yesImages = new Image [5];
-        String filelocation;
-        for (int i = 0; i < 5; i++) {
-
-            filelocation = "C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\yes" + i + ".gif";
-            Image img = new Image("file:"+filelocation);
-            yesImages[i] = img;
-        }
 
         int i =0;
         for (int j = 0; j < 7; j++) {
@@ -203,20 +185,24 @@ public class main extends Application {
                 i++;
             }
         }
+
         grid.setOnMouseClicked(e ->{
-                    ImageView imageViewSourceRef = (ImageView) e.getTarget();
-                    String id = imageViewSourceRef.getId();
-                    System.out.println(id);
-                    int columnIndex = grid.getColumnIndex(imageViewSourceRef);
-                    int rowIndex = grid.getRowIndex(imageViewSourceRef);
-                    for (int j = 0; j < 5; j++) {
-                        if(id.equals(listOfImageAsk[j])){
-                            ImageView imageYes = new ImageView(yesImages[j]);
-                            grid.add(imageYes, columnIndex, rowIndex);
-                            System.out.println(id + "  fuckoff");
-                        }
-                    }
-                });
+            ImageView imageViewSourceRef = (ImageView) e.getTarget();
+            String id = imageViewSourceRef.getId();
+            System.out.println(id);
+            int columnIndex = grid.getColumnIndex(imageViewSourceRef);
+            int rowIndex = grid.getRowIndex(imageViewSourceRef);
+
+
+            if(ifTheRightPictureClicked(id, listOfImageAsk)){
+                grid.add(new ImageView(imgYes), columnIndex, rowIndex);
+                System.out.println(id + "  fuckoff");
+                int counter =0;
+                counter = counter + 1;
+            } else grid.add(new ImageView(imgNo), columnIndex, rowIndex);
+            gameover();
+
+        });
 
         Button tryAgain = new Button("Try again");
         vbox.getChildren().addAll(grid, tryAgain);
@@ -225,5 +211,15 @@ public class main extends Application {
         window1.setScene(scene4);
     }
 
+    public static boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
+        for (int i = 0; i < listOfImageAsk.length; i++) {
+            if(id.equals(listOfImageAsk[i])){
+                return true;
+            }
+        }return false;
+    }
+    public void gameover (){
+        System.out.println("gameover method");
+    }
 }
 

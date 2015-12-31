@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53a6c69d-fcfd-45e6-a8ad-b12c296e8adc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/main.class" afterPath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/main.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Images library/yes1.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Images library/yes2.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Images library/yes3.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Images library/yes4.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/main.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/main.java" afterPath="$PROJECT_DIR$/src/MemoryTest/main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/testArrayToList.java" afterPath="$PROJECT_DIR$/src/MemoryTest/testArrayToList.java" />
     </list>
     <ignored path="javaProject.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,10 +43,12 @@
       <file leaf-file-name="main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MemoryTest/main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9317739">
-              <caret line="207" column="59" selection-start-line="207" selection-start-column="59" selection-end-line="207" selection-end-column="59" />
+            <state vertical-scroll-proportion="0.69005847">
+              <caret line="198" column="52" selection-start-line="198" selection-start-column="52" selection-end-line="198" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#7726#7727#0" expanded="true" />
+                <element signature="e#7779#7780#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -131,6 +136,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -170,7 +176,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -609,6 +614,36 @@
     <entry file="file://$PROJECT_DIR$/src/MemoryTest/errorPopUp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="35" selection-start-line="37" selection-start-column="35" selection-end-line="37" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MemoryTest/main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MemoryTest/testArrayToList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="46" selection-start-line="21" selection-start-column="46" selection-end-line="21" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/MemoryTest/errorPopUp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -620,6 +655,8 @@
           <caret line="39" column="20" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -648,6 +685,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -676,6 +715,8 @@
           <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -704,6 +745,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -732,6 +775,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -750,6 +795,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -768,6 +815,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -786,6 +835,8 @@
           <caret line="54" column="48" selection-start-line="54" selection-start-column="48" selection-end-line="54" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -887,10 +938,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MemoryTest/main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9317739">
-          <caret line="207" column="59" selection-start-line="207" selection-start-column="59" selection-end-line="207" selection-end-column="59" />
+        <state vertical-scroll-proportion="0.69005847">
+          <caret line="198" column="52" selection-start-line="198" selection-start-column="52" selection-end-line="198" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#7726#7727#0" expanded="true" />
+            <element signature="e#7779#7780#0" expanded="true" />
           </folding>
         </state>
       </provider>
