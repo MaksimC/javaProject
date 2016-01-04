@@ -20,6 +20,7 @@ public class main extends Application {
     Stage window1;
     Scene scene1, scene2, scene3, scene4;
     Image[] allImages = new Image[49];
+    int counter = 0;
 
     public static void main () throws Exception {
 
@@ -143,7 +144,6 @@ public class main extends Application {
         nextButton.setOnAction(e -> checkResultScreen(listOfImageAsk));
         nextButton.setOnKeyPressed(e -> checkResultScreen(listOfImageAsk));
 
-
         scene3 = new Scene(layout3, 800, 600);
         window1.setScene(scene3);
 
@@ -166,21 +166,6 @@ public class main extends Application {
                 Image image = allImages[i];
                 ImageView imageCheck = new ImageView(image);
                 imageCheck.setId(i+".gif");
-                /*imageCheck.setOnMouseClicked(e ->{
-                    ImageView imageViewSourceRef = (ImageView) e.getSource();
-                    String id = imageViewSourceRef.getId();
-                    System.out.println(id);
-                    int columnIndex = grid.getColumnIndex(imageViewSourceRef);
-                    int rowIndex = grid.getRowIndex(imageViewSourceRef);
-                    for (int l = 0; l < 5; l++) {
-                        if (id.equals(listOfImageAsk[l])) {
-                            grid.add(imageViewYes, columnIndex, rowIndex);
-                            System.out.println(id + "  fuckoff");
-                        } /*else {
-                            grid.add(imageViewNo, columnIndex, rowIndex);
-                        }
-                    }
-                });*/
                 grid.add(imageCheck, k, j);
                 i++;
             }
@@ -188,20 +173,7 @@ public class main extends Application {
 
         grid.setOnMouseClicked(e ->{
             ImageView imageViewSourceRef = (ImageView) e.getTarget();
-            String id = imageViewSourceRef.getId();
-            System.out.println(id);
-            int columnIndex = grid.getColumnIndex(imageViewSourceRef);
-            int rowIndex = grid.getRowIndex(imageViewSourceRef);
-
-
-            if(ifTheRightPictureClicked(id, listOfImageAsk)){
-                grid.add(new ImageView(imgYes), columnIndex, rowIndex);
-                System.out.println(id + "  fuckoff");
-                int counter =0;
-                counter = counter + 1;
-            } else grid.add(new ImageView(imgNo), columnIndex, rowIndex);
-            gameover();
-
+            reactOnMouseClick(grid, listOfImageAsk, imgYes, imgNo, imageViewSourceRef);
         });
 
         Button tryAgain = new Button("Try again");
@@ -209,6 +181,24 @@ public class main extends Application {
 
         scene4 = new Scene(vbox, 800, 600);
         window1.setScene(scene4);
+    }
+    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef){
+
+        String id = imageViewSourceRef.getId();
+        System.out.println(id);
+        int columnIndex = grid.getColumnIndex(imageViewSourceRef);
+        int rowIndex = grid.getRowIndex(imageViewSourceRef);
+
+        if(ifTheRightPictureClicked(id, listOfImageAsk)){
+            grid.add(new ImageView(imgYes), columnIndex, rowIndex);
+            counter = counter + 1;
+            System.out.println(counter);
+            if (counter == 5){
+                gameSuccess();
+            }
+        } else   gameover(grid, imgNo, columnIndex, rowIndex);
+
+
     }
 
     public static boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
@@ -218,8 +208,13 @@ public class main extends Application {
             }
         }return false;
     }
-    public void gameover (){
+    public void gameover (GridPane grid, Image imgNo, int columnIndex, int rowIndex){
+        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
         System.out.println("gameover method");
     }
+    public void gameSuccess (){
+        System.out.println("level UP!");
+    }
+
 }
 
