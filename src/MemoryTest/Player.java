@@ -1,4 +1,4 @@
-package MemoryTest;
+/*package MemoryTest;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -12,19 +12,21 @@ import javafx.stage.Stage;
 /**
  * Created by emaktse on 04.01.2016.
  */
+/*
 public class Player extends Application{
-
-
+    Playfield playfield = new Playfield();
+    errorPopUp error = new errorPopUp();
+    Stage window1;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        userInputScreen();
+        window1 = primaryStage;
     }
 
-    public static void userInputScreen(Stage primaryStage){
-        Stage window1;
+
+    public void userInputScreen(){
         Scene scene1, scene2, scene3, scene4;
-        window1 = primaryStage;
 
         // Scene 1 elements
         Label label1 = new Label("Please enter your name and age");
@@ -33,10 +35,10 @@ public class Player extends Application{
         nameInput.setPromptText("ENTER YOUR NAME HERE");
         ageInput.setPromptText("ENTER YOUR AGE HERE");
         Button buttonNext = new Button ("Next");
-        buttonNext.setOnAction( e -> Player.validateName(nameInput, ageInput));
-        buttonNext.setOnKeyPressed(event -> {
+        buttonNext.setOnAction( e -> System.out.println("works1!")validateName(nameInput, ageInput));
+        buttonNext.setOnKeyPressed(event -> System.out.println("works2!"){
             System.out.println(event.getCode());
-            Player.validateName(nameInput, ageInput);
+            validateName(nameInput, ageInput);
         });
 
         // Scene 1 layout
@@ -53,28 +55,29 @@ public class Player extends Application{
     }
 
     //Name Validation method
-    public static void validateName(TextField input, TextField input1) {
+    public void validateName(TextField input, TextField input1) {
         String inputAge = input1.getText();
         String inputName = input.getText();
         if (inputName.length() == 0){
-            errorPopUp.errorPop2("Title", "Message");
+            error.errorPop2("Title", "Message");
         } else
             validateAge(inputAge, inputName);
     }
 
     // Age validation method
-    public static boolean validateAge(String inputAge, String inputName){
+    public boolean validateAge(String inputAge, String inputName){
         try {
             int age = Integer.parseInt(inputAge);
             System.out.println("Name is " + inputName + ", Age is " + age);
-            Game.levelSelectionScreen();
+            playfield.levelSelectionScreen();
 
             return true;
         } catch (NumberFormatException e) {
-            errorPopUp.errorPop("Title", "Message");
+            error.errorPop("Title", "Message");
             return false;
         }
     }
 
 
 }
+*/

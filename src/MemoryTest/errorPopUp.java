@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * Created by emaktse on 01.11.2015.
  */
 public class errorPopUp {
-    public static void errorPop (String title, String message) {
+    public void errorPop (String title, String message) {
 
         // Set window/stage
         Stage window1 = new Stage();
@@ -40,7 +40,7 @@ public class errorPopUp {
 
     }
 
-    public static void errorPop2 (String title, String message) {
+    public void errorPop2 (String title, String message) {
 
         // Set window/stage
         Stage window1 = new Stage();

@@ -1,10 +1,16 @@
 package MemoryTest;
 
+
 /**
  * Created by emaktse on 04.01.2016.
  */
-public class MemoryTest {
+/*
+public class Main {
     public static void main(String[] args) {
-        Game.introScreen();
+        System.out.println("start game");
+
+      new MainOld();
+
     }
 }
+*/

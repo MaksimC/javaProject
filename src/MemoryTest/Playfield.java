@@ -1,4 +1,4 @@
-package MemoryTest;
+/*package MemoryTest;
 
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -6,102 +6,40 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import java.util.*;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
- * Created by emaktse on 01.11.2015.
+ * Created by emaktse on 04.01.2016.
  */
-public class main extends Application {
-    Stage window1;
-    Scene scene1, scene2, scene3, scene4;
+/*
+public class Playfield extends Application{
     Image[] allImages = new Image[49];
+    Stage window1;
     int counter = 0;
+    Scene scene, scene1, scene2, scene3, scene4;
 
-    public static void main () throws Exception {
 
+    public Playfield (){
+        System.out.println("START PLAYFIELD");
+        start();
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        window1 = primaryStage;
-
-
-        // Scene 1 elements
-        Label label1 = new Label("Please enter your name and age");
-        TextField nameInput = new TextField();
-        TextField ageInput = new TextField();
-        nameInput.setPromptText("ENTER YOUR NAME HERE");
-        ageInput.setPromptText("ENTER YOUR AGE HERE");
-        Button buttonNext = new Button ("Next");
-        buttonNext.setOnAction( e -> validateName(nameInput, ageInput));
-        buttonNext.setOnKeyPressed(event -> {
-            System.out.println(event.getCode());
-            validateName(nameInput, ageInput);
-        });
-
-        // Scene 1 layout
-        VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, nameInput, ageInput, buttonNext);
-        layout1.setAlignment(Pos.CENTER);
-        scene1 = new Scene (layout1, 800, 600);
-
-        window1.setScene(scene1);
-        window1.setTitle("Memory test");
-
-        window1.show();
+        //window1 = primaryStage;
+        createImageArray();
+        introScreen();
     }
 
-    //Name Validation method
-    private void validateName(TextField input, TextField input1) {
-        String inputAge = input1.getText();
-        String inputName = input.getText();
-        if (inputName.length() == 0){
-            errorPopUp.errorPop2("Title", "Message");
-        } else
-            validateAge(inputAge, inputName);
-    }
-
-    // Age validation method
-    private boolean validateAge(String inputAge, String inputName){
-        try {
-            int age = Integer.parseInt(inputAge);
-            System.out.println("Name is " + inputName + ", Age is " + age);
-            testStart();
-
-            return true;
-        } catch (NumberFormatException e) {
-            errorPopUp.errorPop("Title", "Message");
-            return false;
-        }
-    }
-
-    public void testStart() {
-        // Scene 2 elements
-        Label label2 = new Label("Press start to begin test");
-        Button buttonStart = new Button("start");
-        buttonStart.setOnAction(e -> array());
-        buttonStart.setOnKeyPressed(event -> array());
-        /* Label label3 = new Label(ageInput.getText());*/
-
-        //Scene 2 layout
-        VBox layout2 = new VBox(30);
-        layout2.getChildren().addAll(label2, buttonStart);
-        layout2.setAlignment(Pos.CENTER);
-        scene2 = new Scene(layout2,800, 600);
-        window1.setScene(scene2);
-
-        window1.setScene(scene2);
-        window1.setTitle("Memory Game");
-        window1.show();
-    }
-
-
-    public void array () {
+    public void createImageArray(){
         String filelocation;
         for (int i = 0; i < 49; i++) {
 
@@ -109,7 +47,40 @@ public class main extends Application {
             Image img = new Image("file:"+filelocation);
             allImages[i] = img;
         }
+        introScreen();
+        System.out.println("all image array ready");
+    }
 
+    public void introScreen(){
+        Player player = new Player();
+
+        Label Name = new Label("Rapid Memory Test");
+        Image img = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\mozg2.jpg");
+        ImageView imgView = new ImageView(img);
+        Label Description = new Label("Today we have interesting and very complicated test." +
+                "You will be shown pictures. You need to remember it and on the next page " +
+                "select only those pictures which you have been shown" +
+                "this is really complicated. Test has 10 levels, each new is more complex than previous");
+        Button startTest = new Button("START TEST");
+        startTest.setOnAction(e -> player.userInputScreen());
+
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(Name,imgView, startTest);
+        Scene scene = new Scene(vbox, 1000, 800);
+        window1.setScene(scene);
+        window1.setTitle("MEMORY TEST");
+        window1.show();
+    }
+    public void levelSelectionScreen (){
+        Button[] levelButtonArray = new Button[10];
+        for (int i = 1; i < 10; i++) {
+            Button button = new Button("Level" + i);
+            button.setOnAction(e ->{askScreen();});
+            levelButtonArray[i] = button;
+        }
+        Stage window1;
+    }
+    public void askScreen(){
         Integer[] randomImageNumber = new Integer[49];
         for (int i = 0; i < randomImageNumber.length; i++) {
             randomImageNumber[i] = i;
@@ -146,7 +117,6 @@ public class main extends Application {
 
         scene3 = new Scene(layout3, 800, 600);
         window1.setScene(scene3);
-
     }
 
     public void checkResultScreen(String [] listOfImageAsk){
@@ -198,10 +168,9 @@ public class main extends Application {
             }
         } else   gameover(grid, imgNo, columnIndex, rowIndex);
 
-
     }
 
-    public static boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
+    public boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
         for (int i = 0; i < listOfImageAsk.length; i++) {
             if(id.equals(listOfImageAsk[i])){
                 return true;
@@ -213,8 +182,22 @@ public class main extends Application {
         System.out.println("gameover method");
     }
     public void gameSuccess (){
+
         System.out.println("level UP!");
+        Label label = new Label("RAPID MEMORY TEST");
+        Label result = new Label ("RESULT:" +
+                "Your memory works on 10%. " +
+                "You are not recommended to engage in intellectual work." +
+                "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
+        Label amountOfRightImg = new Label("You have selected all pictures correctly!");
+        Image imgSimpson = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\mozg.jpg");
+        ImageView imageViewSimpson = new ImageView(imgSimpson);
+
+        VBox vbox = new VBox(20);
+        vbox.getChildren().addAll(label, imageViewSimpson,result,amountOfRightImg);
+        scene1 = new Scene(vbox, 1000, 800);
+
+
     }
-
 }
-
+*/
