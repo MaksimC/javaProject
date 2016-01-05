@@ -70,6 +70,7 @@ public class MainOld extends Application {
 
     public void userInputScreen(){
         // Scene 1 elements
+
         Label label1 = new Label("Please enter your name and age");
         TextField nameInput = new TextField();
         TextField ageInput = new TextField();
@@ -103,7 +104,7 @@ public class MainOld extends Application {
         if (inputName.length() == 0){
             error.errorPop2("Title", "Message");
         } else
-            validateAge(inputAge, inputName);
+            /*playerOld.*/validateAge(inputAge, inputName);
     }
 
     // Age validation method
@@ -131,7 +132,7 @@ public class MainOld extends Application {
         for (int i = 0; i < levelCounter; i++) {
             Button button = new Button("Level " + (i+1));
             button.setOnAction(e ->
-                    askImage());
+                    askImageScreen());
             levelButtonArray[i] = button;
         }
 
@@ -151,7 +152,7 @@ public class MainOld extends Application {
     }
 
 
-    public void askImage () {
+    public void askImageScreen() {
 
         Integer[] randomImageNumber = new Integer[49];
         for (int i = 0; i < randomImageNumber.length; i++) {
@@ -241,7 +242,7 @@ public class MainOld extends Application {
             if (correctImageCounter == levelFactor){
                 levelSuccess();
             }
-        } else   gameover(grid, imgNo, columnIndex, rowIndex);
+        } else   wrongImageClicked(grid, imgNo, columnIndex, rowIndex);
     }
 
     public boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
@@ -251,18 +252,7 @@ public class MainOld extends Application {
             }
         }return false;
     }
-    public void pause () {
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-        }
-    }
 
-    public void gameover (GridPane grid, Image imgNo, int columnIndex, int rowIndex){
-        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
-        System.out.println("gameover method");
-        gameComplete();
-    }
 
     public void levelSuccess() {
         levelCounter = levelCounter + 1;
@@ -272,18 +262,33 @@ public class MainOld extends Application {
         else gameComplete();
     }
 
+    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex){
+        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
+        System.out.println("gameover method");
+        pause();
+    }
+
+    public void pause () {
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+        }
+        gameComplete();
+    }
+
     public void gameComplete (){
         System.out.println("level UP!");
         Label label = new Label("RAPID MEMORY TEST");
-        Label result = new Label ("RESULT:" +
-                "Your memory works on 10%. " +
-                "You are not recommended to engage in intellectual work." +
+        Label result = new Label ("RESULT:\n" +
+                "Your memory works on " +levelCounter*10+ "%. \n" +
+                "You are not recommended to engage in intellectual work.\n" +
                 "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
-        Label amountOfRightImg = new Label("You have selected all pictures correctly!");
+        Label amountOfRightImg = new Label("You have selected" +correctImageCounter+ "pictures correctly!");
         Image imgSimpson = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\mozg.jpg");
         ImageView imageViewSimpson = new ImageView(imgSimpson);
 
         VBox vbox = new VBox(20);
+        vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(label, imageViewSimpson,result,amountOfRightImg);
         scene5 = new Scene(vbox, 1000, 800);
         window1.setScene(scene5);
