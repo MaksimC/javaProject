@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 /**
  * Created by emaktse on 06.01.2016.
  */
-
+/*
 public class GameComplete extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,6 +36,5 @@ public class GameComplete extends Application {
         window1.show();
 
     }
-
-
 }
+*/

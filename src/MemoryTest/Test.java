@@ -52,10 +52,9 @@ public class Test {
         return randomImageNumber;
     }
 
-    public void gameLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window1){
-        MainOld mainOld = new MainOld();
+    public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window1){
+        Window window = new Window();
         Stage window2 = new Stage();
-        GameComplete gameComplete = new GameComplete();
         if(ifTheRightPictureClicked(id, listOfImageAsk)){
             grid.add(new ImageView(imgYes), columnIndex, rowIndex);
             correctImageCounter = correctImageCounter + 1;
@@ -83,13 +82,13 @@ public class Test {
 
     public void levelSuccess(int correctImageCounter) {
         System.out.println("Method levelSuccess");
-        MainOld mainOld = new MainOld();
+        Window window = new Window();
         Stage window2 = new Stage();
         levelCounter = levelCounter + 1;
         levelFactor = levelFactor + 2;
         if (levelCounter < 4)
-            mainOld.selectLevel(levelCounter, levelFactor, window2);
-        else mainOld.gameCompleteScreen(correctImageCounter, levelCounter, window2);
+            window.selectLevel(levelCounter, levelFactor, window2);
+        else window.gameCompleteScreen(correctImageCounter, levelCounter, window2);
         System.out.println("Level Factor is "+levelFactor);
         //this.correctImageCounter =0;
 
@@ -101,13 +100,13 @@ public class Test {
         pause();
     }
     public void pause () {
-        MainOld mainOld = new MainOld();
+        Window window = new Window();
         Stage window2 = new Stage();
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
-            mainOld.gameCompleteScreen(correctImageCounter, levelCounter, window2);
+            window.gameCompleteScreen(correctImageCounter, levelCounter, window2);
         }
-        mainOld.gameCompleteScreen(correctImageCounter,levelCounter, window2);
+        window.gameCompleteScreen(correctImageCounter,levelCounter, window2);
     }
 }
