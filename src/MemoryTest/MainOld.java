@@ -11,43 +11,28 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by emaktse on 01.11.2015.
  */
 public class MainOld extends Application {
-    Stage window1;
-    Scene scene1, scene2, scene3, scene4, scene5;
-    Image[] allImages = new Image[49];
-    int correctImageCounter = 0;
-    int levelCounter = 1;
-    int levelFactor = 2;
-
-
-    public MainOld(){
-        System.out.println("method MainOld");
-    }
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         window1 = primaryStage;
-        createImageArray();
         introScreen();
     }
-    public void createImageArray() {
-        String filelocation;
-        for (int i = 0; i < 49; i++) {
 
-            filelocation = "C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\" + i + ".gif";
-            Image img = new Image("file:" + filelocation);
-            allImages[i] = img;
-        }
-    }
+    Test test = new Test();
+
+    Stage window1;
+    Scene scene1, scene2, scene3, scene4, scene5;
+
+    Image [] allImageArray = test.createImageArray();
+
+
     public void introScreen(){
-        //Player player = new Player();
 
         Label Name = new Label("Rapid Memory Test");
         Image img = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\mozg2.jpg");
@@ -97,14 +82,13 @@ public class MainOld extends Application {
 
     //Name Validation method
     private void validateName(TextField input, TextField input1) {
-        PlayerOld playerOld = new PlayerOld();
         errorPopUp error = new errorPopUp();
         String inputAge = input1.getText();
         String inputName = input.getText();
         if (inputName.length() == 0){
             error.errorPop2("Title", "Message");
         } else
-            /*playerOld.*/validateAge(inputAge, inputName);
+            validateAge(inputAge, inputName);
     }
 
     // Age validation method
@@ -113,7 +97,7 @@ public class MainOld extends Application {
         try {
             int age = Integer.parseInt(inputAge);
             System.out.println("Name is " + inputName + ", Age is " + age);
-            selectLevel(levelCounter);
+            selectLevel(1, 2, window1);
 
             return true;
         } catch (NumberFormatException e) {
@@ -122,21 +106,20 @@ public class MainOld extends Application {
         }
     }
 
-    public void selectLevel (int levelCounter){
-        correctImageCounter = 0;
+    public void selectLevel (int levelCounter, int levelFactor, Stage primaryStage){
+        window1 = primaryStage;
         System.out.println("Level is "+levelCounter);
-        VBox layout2 = new VBox(10);
-        Label label2 = new Label("RAPID MEMORY TEST");
-        layout2.getChildren().addAll(label2);
         Button[] levelButtonArray = new Button[levelCounter];
         for (int i = 0; i < levelCounter; i++) {
             Button button = new Button("Level " + (i+1));
             button.setOnAction(e ->
-                    askImageScreen());
+                    askImageScreen(levelFactor));
             levelButtonArray[i] = button;
         }
 
-
+        VBox layout2 = new VBox(10);
+        Label label2 = new Label("RAPID MEMORY TEST");
+        layout2.getChildren().addAll(label2);
         for (int i = 0; i < levelButtonArray.length; i++) {
             layout2.getChildren().addAll(levelButtonArray[i]);
         }
@@ -152,33 +135,29 @@ public class MainOld extends Application {
     }
 
 
-    public void askImageScreen() {
 
-        Integer[] randomImageNumber = new Integer[49];
-        for (int i = 0; i < randomImageNumber.length; i++) {
-            randomImageNumber[i] = i;
-        }
-        Collections.shuffle(Arrays.asList((randomImageNumber)));
+    public void askImageScreen(int levelFactor) {
 
+        Integer [] randomImageNumber = test.chooseRandomPictureNumbers();
         String [] listOfImageAsk = new String [levelFactor];
 
         Group group = new Group();
-        for (int i = 0; i < listOfImageAsk.length; i++) {
-            Image image = allImages[randomImageNumber[i]];
+        for (int i = 0; i < levelFactor; i++) {
+            Image image = allImageArray[randomImageNumber[i]];
             ImageView imageAsk = new ImageView(image);
             imageAsk.setId(randomImageNumber[i]+".gif");
-            listOfImageAsk [i] = (randomImageNumber[i]+".gif");
             imageAsk.setX(i*83);
             group.getChildren().add(imageAsk);
-            System.out.println(listOfImageAsk[i]);
+            listOfImageAsk [i] = (randomImageNumber[i]+".gif");
+            System.out.println("image ID is " + imageAsk.getId());
+            System.out.println("saved ID is " + listOfImageAsk[i]);
         }
-
-        //scene3 elements
 
         Label instruction = new Label("RULES TO BE HERE");
         Button nextButton = new Button("NEXT");
 
-        BorderPane layout3 = new BorderPane();
+        BorderPane layout3;
+        layout3 = new BorderPane();
 
         layout3.setCenter(group);
         layout3.setTop(instruction);
@@ -195,19 +174,17 @@ public class MainOld extends Application {
 
     public void checkResultScreen(String [] listOfImageAsk){
 
+
         VBox vbox = new VBox(40);
         GridPane grid = new GridPane();
         grid.setGridLinesVisible(false);
         Image imgYes = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\yes.gif");
-        ImageView imageViewYes = new ImageView(imgYes);
         Image imgNo = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\no.gif");
-        ImageView imageViewNo = new ImageView(imgNo);
-
 
         int i =0;
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 7; k++) {
-                Image image = allImages[i];
+                Image image = allImageArray[i];
                 ImageView imageCheck = new ImageView(image);
                 imageCheck.setId(i+".gif");
                 grid.add(imageCheck, k, j);
@@ -217,7 +194,7 @@ public class MainOld extends Application {
 
         grid.setOnMouseClicked(e ->{
             ImageView imageViewSourceRef = (ImageView) e.getTarget();
-            reactOnMouseClick(grid, listOfImageAsk, imgYes, imgNo, imageViewSourceRef);
+            reactOnMouseClick(grid, listOfImageAsk, imgYes, imgNo, imageViewSourceRef, window1);
         });
 
         Button tryAgain = new Button("Try again");
@@ -228,62 +205,23 @@ public class MainOld extends Application {
         scene4 = new Scene(vbox, 1000, 800);
         window1.setScene(scene4);
     }
-    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef){
-        System.out.println("Level Factor is "+levelFactor);
+    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window1){
+
         String id = imageViewSourceRef.getId();
         System.out.println(id);
         int columnIndex = grid.getColumnIndex(imageViewSourceRef);
         int rowIndex = grid.getRowIndex(imageViewSourceRef);
-
-        if(ifTheRightPictureClicked(id, listOfImageAsk)){
-            grid.add(new ImageView(imgYes), columnIndex, rowIndex);
-            correctImageCounter = correctImageCounter + 1;
-            System.out.println("Correct image counter is "+correctImageCounter);
-            if (correctImageCounter == levelFactor){
-                levelSuccess();
-            }
-        } else   wrongImageClicked(grid, imgNo, columnIndex, rowIndex);
+        test.gameLogic(grid, imgNo, imgYes, columnIndex, rowIndex, listOfImageAsk, id, window1);
     }
 
-    public boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
-        for (int i = 0; i < listOfImageAsk.length; i++) {
-            if(id.equals(listOfImageAsk[i])){
-                return true;
-            }
-        }return false;
-    }
-
-
-    public void levelSuccess() {
-        levelCounter = levelCounter + 1;
-        levelFactor = levelFactor + 2;
-        if (levelCounter < 11)
-            selectLevel(levelCounter);
-        else gameComplete();
-    }
-
-    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex){
-        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
-        System.out.println("gameover method");
-        pause();
-    }
-
-    public void pause () {
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-        }
-        gameComplete();
-    }
-
-    public void gameComplete (){
-        System.out.println("level UP!");
+    public void gameCompleteScreen (int correctImageCounter,int levelCounter, Stage primaryStage){
+        window1 = primaryStage;
         Label label = new Label("RAPID MEMORY TEST");
         Label result = new Label ("RESULT:\n" +
-                "Your memory works on " +levelCounter*10+ "%. \n" +
+                "Your memory works on " +(levelCounter-1)*10+ "%. \n" +
                 "You are not recommended to engage in intellectual work.\n" +
                 "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
-        Label amountOfRightImg = new Label("You have selected" +correctImageCounter+ "pictures correctly!");
+        Label amountOfRightImg = new Label("You have selected " +correctImageCounter+ " pictures correctly!");
         Image imgSimpson = new Image("file:C:\\Users\\emaktse\\Documents\\HITSA\\GIT Repository\\javaProject\\Images library\\mozg.jpg");
         ImageView imageViewSimpson = new ImageView(imgSimpson);
 
@@ -292,6 +230,9 @@ public class MainOld extends Application {
         vbox.getChildren().addAll(label, imageViewSimpson,result,amountOfRightImg);
         scene5 = new Scene(vbox, 1000, 800);
         window1.setScene(scene5);
+        window1.show();
+
     }
+
 }
 
