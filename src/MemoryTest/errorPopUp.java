@@ -68,6 +68,37 @@ public class errorPopUp {
 
     }
 
+     public void errorPop3 (int correctImageCounter, int accessLevelCounter, int levelFactor, Stage window5) {
+
+        Window window = new Window();
+        // Set window/stage
+        Stage window1 = new Stage();
+
+        window1.initModality(Modality.APPLICATION_MODAL);
+        window1.setTitle("RAPID MEMORY TEST");
+        window1.setWidth(300);
+        window1.setHeight(200);
+
+        // Scene1 elements
+        Label label1 = new Label();
+        label1.setText("Whoops! You clicked wrong image!!");
+        Button button1 = new Button("OK");
+        button1.setOnAction(e -> {
+            window5.close();
+            window1.close();
+            window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
+        });
+
+        // Scene1 layout
+        VBox layout1 = new VBox(30);
+        layout1.getChildren().addAll(label1, button1);
+        layout1.setAlignment(Pos.CENTER);
+        Scene scene1 = new Scene(layout1);
+
+        window1.setScene(scene1);
+        window1.setTitle("ERROR!");
+        window1.showAndWait();
+    }
 }
 
 

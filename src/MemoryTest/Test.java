@@ -82,31 +82,29 @@ public class Test {
             else window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
             System.out.println("Level Factor is "+levelFactor);
         } else window.selectLevelScreen(accessLevelCounter);
-        //this.correctImageCounter =0;
-
     }
 
     public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5, int levelFactor){
+        Window window = new Window();
+        errorPopUp error = new errorPopUp();
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(2500),
                 ae -> grid.add(new ImageView(imgNo), columnIndex, rowIndex)));
         timeline.play();
-        //grid.add(new ImageView(imgNo), columnIndex, rowIndex);
-        window5.close();
+        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
         System.out.println("method wrongImageClick");
-        pause(levelFactor);
+        error.errorPop3(correctImageCounter, accessLevelCounter, levelFactor, window5);
     }
-    public void pause (int levelFactor) {
+
+   /* public void pause (int levelFactor) {
         Window window = new Window();
-
-
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
         }
         window.gameCompleteScreen(correctImageCounter,accessLevelCounter, levelFactor);
-    }
+    }*/
 
     public void restartGame(){
         Window window = new Window();
