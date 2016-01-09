@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,6 +31,8 @@ public class Window extends Application {
     Scene scene1, scene2, scene3, scene4, scene5;
     Image[] allImageArray = test.createImageArray();
     int levelFactor;
+    static String name;
+    static String age;
 
     public void introScreen(){
         Stage window2 = new Stage();
@@ -45,7 +48,8 @@ public class Window extends Application {
         Description.setFont(Font.font("Tahoma", FontWeight.BOLD, 13));
         Button startTest = new Button("START TEST");
         startTest.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-        startTest.setOnAction(e -> {userInputScreen();
+        startTest.setOnAction(e -> {
+            userInputScreen();
             window2.close();
         });
 
@@ -57,7 +61,7 @@ public class Window extends Application {
         window2.setTitle("RAPID MEMORY TEST");
         window2.show();
     }
-
+    KeyEvent keyEvent;
     public void userInputScreen(){
         Stage window3 = new Stage();
 
@@ -73,8 +77,9 @@ public class Window extends Application {
         ageInput.setPromptText("ENTER YOUR AGE HERE");
         Button buttonNext = new Button ("Next");
         buttonNext.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-        buttonNext.setOnAction( e ->
-                validateName(nameInput, ageInput, window3));
+        buttonNext.setOnAction( e ->{
+                validateName(nameInput, ageInput, window3);
+        });
         buttonNext.setOnKeyPressed(event -> {
             System.out.println(event.getCode());
             validateName(nameInput, ageInput, window3);
@@ -99,21 +104,28 @@ public class Window extends Application {
 
     }
 
-    private void validateName(TextField input, TextField input1, Stage window3) {
+   /* public void handle(final KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            nimedlist.add(nimiTekst.getText());
+            nimiTekst.setText(null);
+        }
+    }*/
+
+    private void validateName(TextField nameInput, TextField ageInput, Stage window3) {
         errorPopUp error = new errorPopUp();
-        String inputAge = input1.getText();
-        String inputName = input.getText();
-        if (inputName.length() == 0){
+        age = ageInput.getText();
+        name = nameInput.getText();
+        if (name.length() == 0){
             error.errorPop2("Title", "Message");
         } else
-            validateAge(inputAge, inputName, window3);
+            validateAge(age, name, window3);
     }
 
-    private boolean validateAge(String inputAge, String inputName, Stage window3){
+    private boolean validateAge(String Age, String Name, Stage window3){
         errorPopUp error = new errorPopUp();
         try {
-            int age = Integer.parseInt(inputAge);
-            System.out.println("Name is " + inputName + ", Age is " + age);
+            int age = Integer.parseInt(Age);
+            System.out.println("Name is " + Name + ", Age is " + age);
             selectLevelScreen(1);
             window3.close();
             return true;
@@ -259,6 +271,7 @@ public class Window extends Application {
         window6.setTitle("RAPID MEMORY TEST");
 
         Button tryLevelAgain = new Button("Try level again");
+        tryLevelAgain.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
         tryLevelAgain.setOnAction( e -> {
             window6.close();
             selectLevelScreen(accessLevelCounter);});
@@ -270,6 +283,7 @@ public class Window extends Application {
         });
 
         Button restartTest = new Button("Restart Game");
+        restartTest.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
         restartTest.setOnAction( e -> {
             window6.close();
             test.restartGame();
@@ -279,22 +293,23 @@ public class Window extends Application {
 
         Label label = new Label("RAPID MEMORY TEST");
         label.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
+        System.out.println("name is " + name);
         Label resultLow = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(currentLevel-1)*10+ "%. \n" +
+                name + ", Your memory works on " +(currentLevel-1)*10+ "%. \n" +
                 "You are not recommended to engage in intellectual work.\n" +
                 "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
         resultLow.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         resultLow.setTextAlignment(TextAlignment.CENTER);
 
         Label resultMedium = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
+                name + ", Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "But remember, there is some room for improvement.");
         resultMedium.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         resultMedium.setTextAlignment(TextAlignment.CENTER);
 
         Label resultHigh = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
+                name +", Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "You are genius, no comments needed!");
         resultHigh.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
