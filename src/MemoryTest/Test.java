@@ -1,10 +1,13 @@
 package MemoryTest;
 
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -41,18 +44,10 @@ public class Test {
         }
         Collections.shuffle(Arrays.asList((randomImageNumber)));
 
-        /*String [] listOfImageAsk = new String [levelFactor];
-
-        for (int j = 0; i < listOfImageAsk.length; j++) {
-            listOfImageAsk [j] = (randomImageNumber[j]+".gif");
-            System.out.println(listOfImageAsk[j]);
-        }*/
-
-
         return randomImageNumber;
     }
 
-    public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window1){
+    public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window5){
         Window window = new Window();
         Stage window2 = new Stage();
         if(ifTheRightPictureClicked(id, listOfImageAsk)){
@@ -62,11 +57,10 @@ public class Test {
             System.out.println("Level Factor is " +levelFactor);
             if (correctImageCounter == levelFactor){
                 System.out.println("Go to levelSuccess");
-                window1.close();
+                window5.close();
                 levelSuccess(correctImageCounter);
             }
-        }else System.out.println("go to wrongImageClick");
-       // wrongImageClicked(grid, imgNo, columnIndex, rowIndex);
+        }else wrongImageClicked(grid, imgNo, columnIndex, rowIndex, window5);
     }
 
     public boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
@@ -83,30 +77,36 @@ public class Test {
     public void levelSuccess(int correctImageCounter) {
         System.out.println("Method levelSuccess");
         Window window = new Window();
-        Stage window2 = new Stage();
+
         levelCounter = levelCounter + 1;
         levelFactor = levelFactor + 2;
-        if (levelCounter < 4)
-            window.selectLevel(levelCounter, levelFactor, window2);
-        else window.gameCompleteScreen(correctImageCounter, levelCounter, window2);
+        if (levelCounter < 10)
+            window.selectLevelScreen(levelCounter, levelFactor);
+        else window.gameCompleteScreen(correctImageCounter, levelCounter, levelFactor);
         System.out.println("Level Factor is "+levelFactor);
         //this.correctImageCounter =0;
 
     }
 
-    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex){
-        grid.add(new ImageView(imgNo), columnIndex, rowIndex);
+    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5){
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.millis(2500),
+                ae -> grid.add(new ImageView(imgNo), columnIndex, rowIndex)));
+        timeline.play();
+        //grid.add(new ImageView(imgNo), columnIndex, rowIndex);
+        window5.close();
         System.out.println("method wrongImageClick");
         pause();
     }
     public void pause () {
         Window window = new Window();
-        Stage window2 = new Stage();
+        Stage window1 = new Stage();
+
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
-            window.gameCompleteScreen(correctImageCounter, levelCounter, window2);
+            window.gameCompleteScreen(correctImageCounter, levelCounter, levelFactor);
         }
-        window.gameCompleteScreen(correctImageCounter,levelCounter, window2);
+        window.gameCompleteScreen(correctImageCounter,levelCounter, levelFactor);
     }
 }
