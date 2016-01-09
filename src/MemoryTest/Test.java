@@ -85,7 +85,6 @@ public class Test {
     }
 
     public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5, int levelFactor){
-        Window window = new Window();
         errorPopUp error = new errorPopUp();
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(2500),

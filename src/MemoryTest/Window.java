@@ -20,13 +20,13 @@ import javafx.stage.Stage;
 /**
  * Created by emaktse on 07.01.2016.
  */
-public class Window extends Application {
+public class Window  /*extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start (Stage primaryStage) throws Exception {
         introScreen();
-    }
-
+    }*/
+{
     Test test = new Test();
     Scene scene1, scene2, scene3, scene4, scene5;
     Image[] allImageArray = test.createImageArray();
@@ -49,8 +49,8 @@ public class Window extends Application {
         Button startTest = new Button("START TEST");
         startTest.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
         startTest.setOnAction(e -> {
-            userInputScreen();
             window2.close();
+            userInputScreen();
         });
 
         VBox vbox = new VBox(40);
@@ -61,7 +61,7 @@ public class Window extends Application {
         window2.setTitle("RAPID MEMORY TEST");
         window2.show();
     }
-    KeyEvent keyEvent;
+
     public void userInputScreen(){
         Stage window3 = new Stage();
 
@@ -78,7 +78,7 @@ public class Window extends Application {
         Button buttonNext = new Button ("Next");
         buttonNext.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
         buttonNext.setOnAction( e ->{
-                validateName(nameInput, ageInput, window3);
+            validateName(nameInput, ageInput, window3);
         });
         buttonNext.setOnKeyPressed(event -> {
             System.out.println(event.getCode());
@@ -121,13 +121,16 @@ public class Window extends Application {
             validateAge(age, name, window3);
     }
 
-    private boolean validateAge(String Age, String Name, Stage window3){
+    private boolean validateAge(String Age, String name, Stage window3){
         errorPopUp error = new errorPopUp();
         try {
             int age = Integer.parseInt(Age);
-            System.out.println("Name is " + Name + ", Age is " + age);
-            selectLevelScreen(1);
+            System.out.println("Name is " + name + ", Age is " + age);
+            Database database = new Database();
+            database.addUserToDB(name, age);
+            database.sulgeYhendus();
             window3.close();
+            selectLevelScreen(1);
             return true;
         } catch (NumberFormatException e) {
             error.errorPop("Title", "Message");
@@ -137,6 +140,8 @@ public class Window extends Application {
 
     public void selectLevelScreen (int levelAccessCounter){
         Stage window4 = new Stage();
+        Database database = new Database();
+        database.uuendaKasutajaAndmeid(name, (levelAccessCounter*10));
 
         System.out.println("Level access is "+levelAccessCounter);
         Button[] levelButtonArray = new Button[levelAccessCounter];
@@ -268,6 +273,7 @@ public class Window extends Application {
     public void gameCompleteScreen (int correctImageCounter,int accessLevelCounter, int currentLevel){
         Test test = new Test();
         Stage window6 = new Stage();
+
         window6.setTitle("RAPID MEMORY TEST");
 
         Button tryLevelAgain = new Button("Try level again");
@@ -289,13 +295,20 @@ public class Window extends Application {
             test.restartGame();
         });
 
-
+        Button topTen = new Button("Top Mnemonics");
+        topTen.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
+        topTen.setOnAction( e -> {
+            Database database = new Database();
+            database.extractDBtoHashMap();
+            database.sulgeYhendus();
+            //window6.close();
+        });
 
         Label label = new Label("RAPID MEMORY TEST");
         label.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         System.out.println("name is " + name);
         Label resultLow = new Label ("RESULT:\n" +"\n"+
-                name + ", Your memory works on " +(currentLevel-1)*10+ "%. \n" +
+                name + ", Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
                 "You are not recommended to engage in intellectual work.\n" +
                 "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
         resultLow.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
@@ -333,11 +346,20 @@ public class Window extends Application {
         } else if (7 <= accessLevelCounter &&  accessLevelCounter <= 10) {vbox.getChildren().addAll(resultHigh);
             System.out.println("level counter is <10");
         }
-        vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest);
+        vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest, topTen);
         scene5 = new Scene(vbox, 1000, 800);
         window6.setScene(scene5);
         window6.show();
     }
+
+    public void topTenScreen(){
+        Stage window7 = new Stage();
+
+
+        window7.show();
+
+    }
+
 }
 
 
