@@ -27,10 +27,9 @@ public class Window extends Application {
     }
 
     Test test = new Test();
-
     Scene scene1, scene2, scene3, scene4, scene5;
-
     Image[] allImageArray = test.createImageArray();
+    int levelFactor;
 
     public void introScreen(){
         Stage window2 = new Stage();
@@ -115,7 +114,7 @@ public class Window extends Application {
         try {
             int age = Integer.parseInt(inputAge);
             System.out.println("Name is " + inputName + ", Age is " + age);
-            selectLevelScreen(1, 2);
+            selectLevelScreen(1);
             window3.close();
             return true;
         } catch (NumberFormatException e) {
@@ -124,7 +123,7 @@ public class Window extends Application {
         }
     }
 
-    public void selectLevelScreen (int levelCounter, int levelFactor){
+    public void selectLevelScreen (int levelCounter){
         Stage window4 = new Stage();
 
         System.out.println("Level is "+levelCounter);
@@ -161,8 +160,9 @@ public class Window extends Application {
         window4.show();
     }
 
-    public void askImageScreen(int levelFactor) {
+    public void askImageScreen(int currentLevel) {
 
+        levelFactor = (currentLevel*2);
         Stage window5 = new Stage();
 
         Integer [] randomImageNumber = test.chooseRandomPictureNumbers();
@@ -176,8 +176,7 @@ public class Window extends Application {
             imageAsk.setX(i*83);
             group.getChildren().add(imageAsk);
             listOfImageAsk [i] = (randomImageNumber[i]+".gif");
-            System.out.println("image ID is " + imageAsk.getId());
-            System.out.println("saved ID is " + listOfImageAsk[i]);
+
         }
         Label name = new Label("RAPID MEMORY TEST");
         name.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
@@ -186,11 +185,11 @@ public class Window extends Application {
         instruction.setTextAlignment(TextAlignment.CENTER);
         Button nextButton = new Button("NEXT");
         nextButton.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-        nextButton.setOnAction(e -> {checkResultScreen(listOfImageAsk);
+        nextButton.setOnAction(e -> {checkResultScreen(listOfImageAsk, levelFactor);
             window5.close();
         });
         nextButton.setOnKeyPressed(e -> {
-            checkResultScreen(listOfImageAsk);
+            checkResultScreen(listOfImageAsk, levelFactor);
             window5.close();
         });
 
@@ -203,7 +202,7 @@ public class Window extends Application {
         window5.show();
     }
 
-    public void checkResultScreen(String [] listOfImageAsk){
+    public void checkResultScreen(String [] listOfImageAsk, int levelFactor){
         Stage window5 = new Stage();
 
         VBox vbox = new VBox(30);
@@ -233,7 +232,7 @@ public class Window extends Application {
 
         grid.setOnMouseClicked(e ->{
             ImageView imageViewSourceRef = (ImageView) e.getTarget();
-            reactOnMouseClick(grid, listOfImageAsk, imgYes, imgNo, imageViewSourceRef, window5);
+            reactOnMouseClick(grid, listOfImageAsk, imgYes, imgNo, imageViewSourceRef, window5, levelFactor);
         });
 
         grid.setAlignment(Pos.CENTER);
@@ -245,23 +244,23 @@ public class Window extends Application {
         window5.show();
     }
 
-    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window4){
+    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window4,int levelFactor){
         String id = imageViewSourceRef.getId();
         System.out.println(id);
         int columnIndex = grid.getColumnIndex(imageViewSourceRef);
         int rowIndex = grid.getRowIndex(imageViewSourceRef);
-        test.testLogic(grid, imgNo, imgYes, columnIndex, rowIndex, listOfImageAsk, id, window4);
+        test.testLogic(grid, imgNo, imgYes, columnIndex, rowIndex, listOfImageAsk, id, window4, levelFactor);
     }
 
-    public void gameCompleteScreen (int correctImageCounter,int levelCounter, int levelFactor){
+    public void gameCompleteScreen (int correctImageCounter,int levelAccessCounter, int currentLevel){
         Stage window6 = new Stage();
         window6.setTitle("RAPID MEMORY TEST");
 
         Button tryLevelAgain = new Button("Try level again");
-        tryLevelAgain.setOnAction( e -> selectLevelScreen(levelCounter, levelFactor));
+        tryLevelAgain.setOnAction( e -> selectLevelScreen(levelAccessCounter));
         tryLevelAgain.setOnKeyPressed(event -> {
             System.out.println(event.getCode());
-            selectLevelScreen(levelCounter, levelFactor);
+            selectLevelScreen(levelAccessCounter);
         });
 
         Button restartTest = new Button("Restart Game");
@@ -280,21 +279,21 @@ public class Window extends Application {
         Label label = new Label("RAPID MEMORY TEST");
         label.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
         Label resultLow = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(levelCounter-1)*10+ "%. \n" +
+                "Your memory works on " +(currentLevel-1)*10+ "%. \n" +
                 "You are not recommended to engage in intellectual work.\n" +
                 "Try to do physical labor. Or train your memory. There are plenty ways to do it.");
         resultLow.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         resultLow.setTextAlignment(TextAlignment.CENTER);
 
         Label resultMedium = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(levelCounter-1)*10+ "%. \n" +
+                "Your memory works on " +(levelAccessCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "But remember, there is some room for improvement.");
         resultMedium.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         resultMedium.setTextAlignment(TextAlignment.CENTER);
 
         Label resultHigh = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(levelCounter-1)*10+ "%. \n" +
+                "Your memory works on " +(levelAccessCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "You are genius, no comments needed!");
         resultHigh.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
@@ -309,13 +308,13 @@ public class Window extends Application {
         VBox vbox = new VBox(25);
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(label, imageViewSimpson);
-        if (levelCounter<3) {
+        if (levelAccessCounter<3) {
             vbox.getChildren().addAll(resultLow);
             System.out.println("Level counter is <3");
-        } else if (3 <= levelCounter && levelCounter < 7 ) {
+        } else if (3 <= levelAccessCounter && levelAccessCounter < 7 ) {
             vbox.getChildren().addAll(resultMedium);
             System.out.println("level counter is <7");
-        } else if (7 <= levelCounter &&  levelCounter <= 10) {vbox.getChildren().addAll(resultHigh);
+        } else if (7 <= levelAccessCounter &&  levelAccessCounter <= 10) {vbox.getChildren().addAll(resultHigh);
             System.out.println("level counter is <10");
         }
         vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest);

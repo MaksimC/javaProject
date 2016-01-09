@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Test {
     Image [] allImages = new Image[49];
-    static int levelFactor = 2;
-    static int levelCounter = 1;
+    // static int levelFactor = 2;
+    static int accessLevelCounter = 1;
     int correctImageCounter = 0;
 
     public  Image [] createImageArray() {
@@ -47,9 +47,7 @@ public class Test {
         return randomImageNumber;
     }
 
-    public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window5){
-        Window window = new Window();
-        Stage window2 = new Stage();
+    public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window5, int levelFactor){
         if(ifTheRightPictureClicked(id, listOfImageAsk)){
             grid.add(new ImageView(imgYes), columnIndex, rowIndex);
             correctImageCounter = correctImageCounter + 1;
@@ -58,9 +56,9 @@ public class Test {
             if (correctImageCounter == levelFactor){
                 System.out.println("Go to levelSuccess");
                 window5.close();
-                levelSuccess(correctImageCounter);
+                levelSuccess(correctImageCounter, levelFactor);
             }
-        }else wrongImageClicked(grid, imgNo, columnIndex, rowIndex, window5);
+        }else wrongImageClicked(grid, imgNo, columnIndex, rowIndex, window5, levelFactor);
     }
 
     public boolean ifTheRightPictureClicked (String id, String [] listOfImageAsk) {
@@ -74,21 +72,21 @@ public class Test {
         return false;
     }
 
-    public void levelSuccess(int correctImageCounter) {
+    public void levelSuccess(int correctImageCounter, int levelFactor) {
         System.out.println("Method levelSuccess");
         Window window = new Window();
-
-        levelCounter = levelCounter + 1;
-        levelFactor = levelFactor + 2;
-        if (levelCounter < 10)
-            window.selectLevelScreen(levelCounter, levelFactor);
-        else window.gameCompleteScreen(correctImageCounter, levelCounter, levelFactor);
-        System.out.println("Level Factor is "+levelFactor);
+        if (accessLevelCounter == (levelFactor/2)){
+            accessLevelCounter = accessLevelCounter + 1;
+            if (accessLevelCounter < 10)
+                window.selectLevelScreen(accessLevelCounter);
+            else window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
+            System.out.println("Level Factor is "+levelFactor);
+        } else window.selectLevelScreen(accessLevelCounter);
         //this.correctImageCounter =0;
 
     }
 
-    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5){
+    public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5, int levelFactor){
         Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(2500),
                 ae -> grid.add(new ImageView(imgNo), columnIndex, rowIndex)));
@@ -96,17 +94,17 @@ public class Test {
         //grid.add(new ImageView(imgNo), columnIndex, rowIndex);
         window5.close();
         System.out.println("method wrongImageClick");
-        pause();
+        pause(levelFactor);
     }
-    public void pause () {
+    public void pause (int levelFactor) {
         Window window = new Window();
-        Stage window1 = new Stage();
+
 
         try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
-            window.gameCompleteScreen(correctImageCounter, levelCounter, levelFactor);
+            window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
         }
-        window.gameCompleteScreen(correctImageCounter,levelCounter, levelFactor);
+        window.gameCompleteScreen(correctImageCounter,accessLevelCounter, levelFactor);
     }
 }
