@@ -107,4 +107,10 @@ public class Test {
         }
         window.gameCompleteScreen(correctImageCounter,accessLevelCounter, levelFactor);
     }
+
+    public void restartGame(){
+        Window window = new Window();
+        accessLevelCounter = 1;
+        window.introScreen();
+    }
 }

@@ -123,12 +123,12 @@ public class Window extends Application {
         }
     }
 
-    public void selectLevelScreen (int levelCounter){
+    public void selectLevelScreen (int levelAccessCounter){
         Stage window4 = new Stage();
 
-        System.out.println("Level is "+levelCounter);
-        Button[] levelButtonArray = new Button[levelCounter];
-        for (int i = 0; i < levelCounter; i++) {
+        System.out.println("Level access is "+levelAccessCounter);
+        Button[] levelButtonArray = new Button[levelAccessCounter];
+        for (int i = 0; i < levelAccessCounter; i++) {
             Button button = new Button("Level " + (i+1));
             button.setId(String.valueOf(i));
             button.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
@@ -244,36 +244,37 @@ public class Window extends Application {
         window5.show();
     }
 
-    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window4,int levelFactor){
+    public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window5,int levelFactor){
         String id = imageViewSourceRef.getId();
         System.out.println(id);
         int columnIndex = grid.getColumnIndex(imageViewSourceRef);
         int rowIndex = grid.getRowIndex(imageViewSourceRef);
-        test.testLogic(grid, imgNo, imgYes, columnIndex, rowIndex, listOfImageAsk, id, window4, levelFactor);
+        test.testLogic(grid, imgNo, imgYes, columnIndex, rowIndex, listOfImageAsk, id, window5, levelFactor);
     }
 
-    public void gameCompleteScreen (int correctImageCounter,int levelAccessCounter, int currentLevel){
+
+    public void gameCompleteScreen (int correctImageCounter,int accessLevelCounter, int currentLevel){
+        Test test = new Test();
         Stage window6 = new Stage();
         window6.setTitle("RAPID MEMORY TEST");
 
         Button tryLevelAgain = new Button("Try level again");
-        tryLevelAgain.setOnAction( e -> selectLevelScreen(levelAccessCounter));
+        tryLevelAgain.setOnAction( e -> {
+            window6.close();
+            selectLevelScreen(accessLevelCounter);});
         tryLevelAgain.setOnKeyPressed(event -> {
+
+            window6.close();
             System.out.println(event.getCode());
-            selectLevelScreen(levelAccessCounter);
+            selectLevelScreen(accessLevelCounter);
         });
 
         Button restartTest = new Button("Restart Game");
         restartTest.setOnAction( e -> {
             window6.close();
-            introScreen();
+            test.restartGame();
+        });
 
-        });
-        tryLevelAgain.setOnKeyPressed(event -> {
-            window6.close();
-            introScreen();
-            System.out.println(event.getCode());
-        });
 
 
         Label label = new Label("RAPID MEMORY TEST");
@@ -286,14 +287,14 @@ public class Window extends Application {
         resultLow.setTextAlignment(TextAlignment.CENTER);
 
         Label resultMedium = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(levelAccessCounter-1)*10+ "%. \n" +
+                "Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "But remember, there is some room for improvement.");
         resultMedium.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         resultMedium.setTextAlignment(TextAlignment.CENTER);
 
         Label resultHigh = new Label ("RESULT:\n" +"\n"+
-                "Your memory works on " +(levelAccessCounter-1)*10+ "%. \n" +
+                "Your memory works on " +(accessLevelCounter-1)*10+ "%. \n" +
                 "You are recommended to do intellectual work.\n" +
                 "You are genius, no comments needed!");
         resultHigh.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
@@ -308,13 +309,13 @@ public class Window extends Application {
         VBox vbox = new VBox(25);
         vbox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(label, imageViewSimpson);
-        if (levelAccessCounter<3) {
+        if (accessLevelCounter < 3) {
             vbox.getChildren().addAll(resultLow);
             System.out.println("Level counter is <3");
-        } else if (3 <= levelAccessCounter && levelAccessCounter < 7 ) {
+        } else if (3 <= accessLevelCounter && accessLevelCounter < 7 ) {
             vbox.getChildren().addAll(resultMedium);
             System.out.println("level counter is <7");
-        } else if (7 <= levelAccessCounter &&  levelAccessCounter <= 10) {vbox.getChildren().addAll(resultHigh);
+        } else if (7 <= accessLevelCounter &&  accessLevelCounter <= 10) {vbox.getChildren().addAll(resultHigh);
             System.out.println("level counter is <10");
         }
         vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest);
