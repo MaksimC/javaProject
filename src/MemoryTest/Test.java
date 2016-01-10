@@ -25,6 +25,10 @@ public class Test {
     static int accessLevelCounter = 1;
     int correctImageCounter = 0;
 
+    /**
+     * Here created array of 49 images that we will use in test. All images have naming "x.gif".
+     * */
+
     public  Image [] createImageArray() {
 
         String filelocation;
@@ -37,6 +41,9 @@ public class Test {
         return allImages;
     }
 
+    /**
+     * Here shuffling array with number  from 0-48.
+     * */
     public Integer [] chooseRandomPictureNumbers(){
         Integer[] randomImageNumber = new Integer[49];
         for (int j = 0; j < randomImageNumber.length; j++) {
@@ -46,11 +53,13 @@ public class Test {
 
         return randomImageNumber;
     }
-
+    /**
+     * Game logic. If user selects all asked pictures correctly, method levelSuccess is executed. If not - method wrongImageClicked.
+     * */
     public void testLogic(GridPane grid, Image imgNo, Image imgYes, int columnIndex,int rowIndex,String [] listOfImageAsk, String id, Stage window5, int levelFactor){
         if(ifTheRightPictureClicked(id, listOfImageAsk)){
             grid.add(new ImageView(imgYes), columnIndex, rowIndex);
-            correctImageCounter = correctImageCounter + 1;
+            correctImageCounter = correctImageCounter + 1; /** here counting how many pictures are correctl clicked.*/
             System.out.println("Correct image counter is "+correctImageCounter);
             System.out.println("Level Factor is " +levelFactor);
             if (correctImageCounter == levelFactor){
@@ -72,6 +81,11 @@ public class Test {
         return false;
     }
 
+    /**
+     * here we follow, which level user is playing. And if this is the highest opened level, then next level is opened.
+     *
+     * */
+
     public void levelSuccess(int correctImageCounter, int levelFactor) {
         System.out.println("Method levelSuccess");
         Window window = new Window();
@@ -79,33 +93,24 @@ public class Test {
             accessLevelCounter = accessLevelCounter + 1;
             if (accessLevelCounter < 10)
                 window.selectLevelScreen(accessLevelCounter);
-            else window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
+            else window.gameCompleteScreen(correctImageCounter, accessLevelCounter);
             System.out.println("Level Factor is "+levelFactor);
         } else window.selectLevelScreen(accessLevelCounter);
     }
 
+    /**
+     * forward user to error screen and draw.
+     * */
     public void wrongImageClicked (GridPane grid, Image imgNo, int columnIndex, int rowIndex, Stage window5, int levelFactor){
         errorPopUp error = new errorPopUp();
-        Timeline timeline = new Timeline(new KeyFrame(
-                Duration.millis(2500),
-                ae -> grid.add(new ImageView(imgNo), columnIndex, rowIndex)));
-        timeline.play();
         grid.add(new ImageView(imgNo), columnIndex, rowIndex);
         System.out.println("method wrongImageClick");
         error.errorPop3(correctImageCounter, accessLevelCounter, levelFactor, window5);
     }
-
-   /* public void pause (int levelFactor) {
-        Window window = new Window();
-        try {
-            TimeUnit.SECONDS.sleep(2);
-        } catch (InterruptedException e) {
-            window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
-        }
-        window.gameCompleteScreen(correctImageCounter,accessLevelCounter, levelFactor);
-    }*/
-
-    public void restartGame(){
+    /**
+     * restart test. level access will be dropped to 1.
+     * */
+    public void restartTest(){
         Window window = new Window();
         accessLevelCounter = 1;
         window.introScreen();

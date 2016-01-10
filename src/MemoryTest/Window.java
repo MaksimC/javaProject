@@ -1,6 +1,5 @@
 package MemoryTest;
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -20,20 +18,24 @@ import javafx.stage.Stage;
 /**
  * Created by emaktse on 07.01.2016.
  */
-public class Window  /*extends Application {
+public class Window {
 
-    @Override
-    public void start (Stage primaryStage) throws Exception {
-        introScreen();
-    }*/
-{
+    /** Class window can draw windows for the game. Game logic is in the class Game.
+     * */
+
     Test test = new Test();
     Scene scene1, scene2, scene3, scene4, scene5;
     Image[] allImageArray = test.createImageArray();
-    int levelFactor;
+    int levelFactor; /** Level factor is level*2 */
+
+    /** There parameters are static, so that would not be engaged, when object window is called.
+     It will be updated during program run and do not need to be renewed.
+     */
     static String name;
     static String age;
 
+    /** intro screen explains the rules and forwards to user input screen
+     * */
     public void introScreen(){
         Stage window2 = new Stage();
         Label Name = new Label("Rapid Memory Test");
@@ -61,6 +63,10 @@ public class Window  /*extends Application {
         window2.setTitle("RAPID MEMORY TEST");
         window2.show();
     }
+
+    /** input screen requests name and age, and validates inserted data.
+     * Name can't be empty, age should beinteger number
+     * */
 
     public void userInputScreen(){
         Stage window3 = new Stage();
@@ -104,13 +110,6 @@ public class Window  /*extends Application {
 
     }
 
-   /* public void handle(final KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            nimedlist.add(nimiTekst.getText());
-            nimiTekst.setText(null);
-        }
-    }*/
-
     private void validateName(TextField nameInput, TextField ageInput, Stage window3) {
         errorPopUp error = new errorPopUp();
         age = ageInput.getText();
@@ -121,14 +120,14 @@ public class Window  /*extends Application {
             validateAge(age, name, window3);
     }
 
+    /**If validation is successful user is dropped to level selection screen. If not - error pop-up appears
+     * Here we create instance of class errorPopUp and refer to it if needed.*/
+
     private boolean validateAge(String Age, String name, Stage window3){
         errorPopUp error = new errorPopUp();
         try {
             int age = Integer.parseInt(Age);
             System.out.println("Name is " + name + ", Age is " + age);
-            Database database = new Database();
-            database.addUserToDB(name, age);
-            database.sulgeYhendus();
             window3.close();
             selectLevelScreen(1);
             return true;
@@ -138,10 +137,16 @@ public class Window  /*extends Application {
         }
     }
 
+    /** from the start of the game level user can access only first level.
+     * Thus from the start we pass paramter levelAccessCounter as 1.
+     * With each successfully completed levels, next levels will get opened, parameter will increment in Game object
+     * and transferred via object reference.
+     * Buttons are added to the screen only for levels which are opened for the user.
+     * Level selection will forward user to screen where task will be given.
+     * */
+
     public void selectLevelScreen (int levelAccessCounter){
         Stage window4 = new Stage();
-        Database database = new Database();
-        database.uuendaKasutajaAndmeid(name, (levelAccessCounter*10));
 
         System.out.println("Level access is "+levelAccessCounter);
         Button[] levelButtonArray = new Button[levelAccessCounter];
@@ -176,6 +181,18 @@ public class Window  /*extends Application {
         window4.setScene(scene2);
         window4.show();
     }
+
+    /**
+     *  Here will be generated screen with pictures that user needs to remember.
+     *  Amount of pictures depends on the level and determined by parameter levelFactor.
+     *  levelFactor = level*2.
+     *  Images are selected randomly, without repeats. It is done via additional array,
+     *  which is shuffled as a collection. Images are selected based on the int values taken from
+     *  the beginning of randomised collection. For example for second level, 4 pictures are taken.
+     *  Values in 0(x), 1(y), 2(z), 3(h) position of array will give x.gif, y.gif, z.gif and h.gif.
+     *  Selected images names are saved to a string array listOfImageAsk.
+     *  From here user will go to checkResultScreen.
+     * */
 
     public void askImageScreen(int currentLevel) {
 
@@ -219,6 +236,16 @@ public class Window  /*extends Application {
         window5.show();
     }
 
+    /**
+     * Check result screen will display all images that are in the allImageArray.
+     * Screen will request to click on the pictures that he has remembered. Correctly clicked pictures will be
+     * marked with red circle. When all pictures that were shows on previous picture are clicked, level is complete,
+     * user will be forwarded to levelSelection screen to open new level.
+     * This screen knows the the id's of pictures that are clicked. Logic for comparison is in object Test,
+     * clicked images ID's are transferred to to Test object. If incorrect picture clicked, it will be marked with
+     * red cross. User will receive error message and forwarded to result screen.
+     * */
+
     public void checkResultScreen(String [] listOfImageAsk, int levelFactor){
         Stage window5 = new Stage();
 
@@ -236,6 +263,9 @@ public class Window  /*extends Application {
         instruction.setFont(Font.font("Tahoma", FontWeight.SEMI_BOLD, 14));
         instruction.setTextAlignment(TextAlignment.CENTER);
 
+        /**
+         * Drawing all pictures
+         * */
         int i =0;
         for (int j = 0; j < 7; j++) {
             for (int k = 0; k < 7; k++) {
@@ -261,6 +291,9 @@ public class Window  /*extends Application {
         window5.show();
     }
 
+    /**
+     * Defining what will program do when pictures are clicked. ID are actually transferred to test from this method.
+     * */
     public void reactOnMouseClick (GridPane grid, String[] listOfImageAsk, Image imgYes, Image imgNo, ImageView imageViewSourceRef, Stage window5,int levelFactor){
         String id = imageViewSourceRef.getId();
         System.out.println(id);
@@ -270,7 +303,11 @@ public class Window  /*extends Application {
     }
 
 
-    public void gameCompleteScreen (int correctImageCounter,int accessLevelCounter, int currentLevel){
+    /**
+     * This screen will display user's result, based on the level that is reached, amount of correctly
+     * selected pictures. Possible to replay level or restart test.
+     * */
+    public void gameCompleteScreen (int correctImageCounter,int accessLevelCounter){
         Test test = new Test();
         Stage window6 = new Stage();
 
@@ -288,21 +325,13 @@ public class Window  /*extends Application {
             selectLevelScreen(accessLevelCounter);
         });
 
-        Button restartTest = new Button("Restart Game");
+        Button restartTest = new Button("Restart Test");
         restartTest.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
         restartTest.setOnAction( e -> {
             window6.close();
-            test.restartGame();
+            test.restartTest();
         });
 
-        Button topTen = new Button("Top Mnemonics");
-        topTen.setFont(Font.font("Tahoma", FontWeight.BOLD, 12));
-        topTen.setOnAction( e -> {
-            Database database = new Database();
-            database.extractDBtoHashMap();
-            database.sulgeYhendus();
-            //window6.close();
-        });
 
         Label label = new Label("RAPID MEMORY TEST");
         label.setFont(Font.font("Tahoma", FontWeight.BOLD, 16));
@@ -346,18 +375,10 @@ public class Window  /*extends Application {
         } else if (7 <= accessLevelCounter &&  accessLevelCounter <= 10) {vbox.getChildren().addAll(resultHigh);
             System.out.println("level counter is <10");
         }
-        vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest, topTen);
+        vbox.getChildren().addAll(amountOfRightImg, tryLevelAgain, restartTest);
         scene5 = new Scene(vbox, 1000, 800);
         window6.setScene(scene5);
         window6.show();
-    }
-
-    public void topTenScreen(){
-        Stage window7 = new Stage();
-
-
-        window7.show();
-
     }
 
 }

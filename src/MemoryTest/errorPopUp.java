@@ -12,6 +12,16 @@ import javafx.stage.Stage;
  * Created by emaktse on 01.11.2015.
  */
 public class errorPopUp {
+
+    /**
+     * Here handled all error messages. Messages are locking out all other screens,
+     * so game cannot be continued without closing the message.
+     * */
+
+
+    /**
+     * Name error message
+     * */
     public void errorPop (String title, String message) {
 
         // Set window/stage
@@ -39,6 +49,10 @@ public class errorPopUp {
         window1.showAndWait();
 
     }
+
+    /**
+     * age error message
+     * */
 
     public void errorPop2 (String title, String message) {
 
@@ -68,6 +82,9 @@ public class errorPopUp {
 
     }
 
+    /**
+     * wrong image clicked error message
+     * */
      public void errorPop3 (int correctImageCounter, int accessLevelCounter, int levelFactor, Stage window5) {
 
         Window window = new Window();
@@ -86,7 +103,7 @@ public class errorPopUp {
         button1.setOnAction(e -> {
             window5.close();
             window1.close();
-            window.gameCompleteScreen(correctImageCounter, accessLevelCounter, levelFactor);
+            window.gameCompleteScreen(correctImageCounter, accessLevelCounter);
         });
 
         // Scene1 layout
