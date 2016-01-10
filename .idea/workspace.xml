@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="53a6c69d-fcfd-45e6-a8ad-b12c296e8adc" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Database$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Database.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/MemoryTest/Database.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Test.class" afterPath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Test.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Window.class" afterPath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/Window.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/errorPopUp.class" afterPath="$PROJECT_DIR$/out/production/javaProject/MemoryTest/errorPopUp.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/Main.java" afterPath="$PROJECT_DIR$/src/MemoryTest/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/Test.java" afterPath="$PROJECT_DIR$/src/MemoryTest/Test.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/Window.java" afterPath="$PROJECT_DIR$/src/MemoryTest/Window.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MemoryTest/errorPopUp.java" afterPath="$PROJECT_DIR$/src/MemoryTest/errorPopUp.java" />
-    </list>
+    <list default="true" id="53a6c69d-fcfd-45e6-a8ad-b12c296e8adc" name="Default" comment="" />
     <ignored path="javaProject.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
